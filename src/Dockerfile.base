@@ -21,7 +21,7 @@ ENV GOLANG_DOWNLOAD_URL https://golang.org/dl/go$GOLANG_VERSION.linux-amd64.tar.
 ENV GOLANG_DOWNLOAD_SHA256 4cb9bfb0e82d665871b84070929d6eeb4d51af6bedbc8fdd3df5766e937ef84c
 
 ENV GOPATH /go
-ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+ENV PATH /usr/local/go/bin:$PATH
 
 RUN true \
   && yum -q -e 0 -y update || true \
