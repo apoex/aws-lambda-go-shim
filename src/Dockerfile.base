@@ -30,6 +30,7 @@ RUN true \
     gcc-c++ \
     python27-devel \
     zip \
+    ImageMagick-devel \
     || true \
   && yum -q -e 0 -y clean all \
   && curl -fsSL "$GOLANG_DOWNLOAD_URL" -o golang.tar.gz \
