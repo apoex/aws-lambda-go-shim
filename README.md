@@ -2,7 +2,7 @@
 [<img src="_asset/logo_powered-by-aws.png" alt="Powered by Amazon Web Services" align="right">][aws-home]
 [<img src="_asset/logo_created-by-eawsy.png" alt="Created by eawsy" align="right">][eawsy-home]
 
-# eawsy/aws-lambda-go-shim
+# apoex/aws-lambda-go-shim
 
 > Author your AWS Lambda function code in Go.
 
@@ -44,8 +44,8 @@ This project fills the gap.
 
 ```sh
 go get -u -d github.com/eawsy/aws-lambda-go-core/...
-docker pull eawsy/aws-lambda-go-shim
-wget -O Makefile https://github.com/eawsy/aws-lambda-go-shim/raw/master/src/Makefile.example
+docker pull apoex/aws-lambda-go-shim
+wget -O Makefile https://github.com/apoex/aws-lambda-go-shim/raw/master/src/Makefile.example
 ```
 
 [<img src="_asset/misc_arrow-up.png" align="right">](#top)

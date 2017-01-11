@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM eawsy/aws-lambda-go-shim:base
+FROM apoex/aws-lambda-go-shim:base
 
 WORKDIR /tmp
 
