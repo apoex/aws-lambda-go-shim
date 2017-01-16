@@ -28,26 +28,27 @@
 GOPATH ?= $(HOME)/go
 HANDLER ?= handler
 PACKAGE ?= package
-CONFIG ?= config
+SOURCEDIR = src
+BINDIR = bin
 
 all:
-	@docker run --rm \
-		-v $(GOPATH):/go -v $(PWD):/tmp \
-		-e "HANDLER=$(HANDLER)" -e "PACKAGE=$(PACKAGE)" -e "CONFIG=$(CONFIG)" \
-		apoex/aws-lambda-go-shim make _all
+  @docker run --rm \
+    -v $(GOPATH):/go -v $(PWD):/tmp \
+    -e "HANDLER=$(HANDLER)" -e "PACKAGE=$(PACKAGE)" \
+    apoex/aws-lambda-go-shim make _all
 
 clean: _clean
 
 _all: _clean
-	@echo -ne "build..."\\r
-	@go build -buildmode=plugin -ldflags='-w -s' -o $(HANDLER).so
-	@chown $(shell stat -c '%u:%g' .) $(HANDLER).so
-	@echo -ne "build, pack"\\r
-	@zip -q $(PACKAGE).zip $(HANDLER).so $(CONFIG).json
-	@echo -ne "build, pack, inject"\\r
-	@cd /; mv /shim $(HANDLER); zip -q -r /tmp/$(PACKAGE).zip $(HANDLER)
-	@chown $(shell stat -c '%u:%g' .) $(PACKAGE).zip
-	@echo -ne "build, pack, inject, go!"\\n
+  @echo -ne "build..."\\r
+  @go build -buildmode=plugin -ldflags='-w -s' -o $(BINDIR)/$(HANDLER).so ./$(SOURCEDIR)
+  @chown $(shell stat -c '%u:%g' .) $(BINDIR)/$(HANDLER).so
+  @echo -ne "build, pack"\\r
+  @zip -q -j $(BINDIR)/$(PACKAGE).zip $(BINDIR)/$(HANDLER).so
+  @echo -ne "build, pack, inject"\\r
+  @cd /; mv /shim $(HANDLER); zip -q -r /tmp/$(BINDIR)/$(PACKAGE).zip $(HANDLER)
+  @chown $(shell stat -c '%u:%g' .) $(BINDIR)/$(PACKAGE).zip
+  @echo -ne "build, pack, inject, go!"\\n
 
 _clean:
-	@rm -rf $(PACKAGE).zip $(HANDLER).so
+  @rm -rf $(BINDIR)/$(PACKAGE).zip $(BINDIR)/$(HANDLER).so
